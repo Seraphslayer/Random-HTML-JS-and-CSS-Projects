@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VShojo Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, #47299E, #6C4DD6);
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        .navbar {
+            background: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #47299E;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #47299E;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-btn, .account-btn, .cart-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s;
+        }
+
+        .search-btn:hover, .account-btn:hover, .cart-btn:hover {
+            color: #47299E;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #B6A6F7, #6C4DD6);
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+        }
+
+        .hero-text {
+            flex: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-character {
+            flex: 1;
+            text-align: right;
+        }
+
+        .anime-character {
+            width: 300px;
+            height: 300px;
+            background: #47299E;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        /* Collections Section */
+        .collections {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 3rem;
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            height: 250px;
+            background: linear-gradient(135deg, #B6A6F7, #6C4DD6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            position: relative;
+        }
+
+        .sale-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .current-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #47299E;
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        /* Filter Bar */
+        .filter-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .filter-section {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .filter-select {
+            padding: 0.5rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close:hover {
+            color: #47299E;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus {
+            border-color: #47299E;
+            outline: none;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #47299E, #6C4DD6);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: white;
+            color: #47299E;
+            border: 2px solid #47299E;
+        }
+
+        /* Cart Styles */
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-empty {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #47299E;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #47299E;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-menu {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .filter-bar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        Free shipping for non-US orders $130 USD and up!
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">MAZE Store bili kayo or sapak</div>
+            <ul class="nav-menu">
+                <li><a href="#" onclick="showPage('home')">TALENT</a></li>
+                <li><a href="#" onclick="showPage('shop')">SHOP ALL</a></li>
+                <li><a href="#" onclick="showPage('Maze Gen 1')">MERCH</a></li>
+                <li><a href="#" onclick="showPage('Maze')">MERCH</a></li>
+                <li><a href="#" onclick="showPage('notices')">NOTICES</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="search-btn">🔍</button>
+                <button class="account-btn" onclick="openModal('loginModal')">👤</button>
+                <button class="cart-btn" onclick="openModal('cartModal')">🛒 <span id="cartCount">0</span></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="mainContent">
+        <!-- Home Page -->
+        <div id="homePage">
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>Maze VT</h1>
+                    </div>
+                    <div class="hero-character">
+                        <img src="maze_chibi.png" alt="Maze VT Chibi" class="anime-character" style="background: none; box-shadow: none; width: 300px; height: 300px; border-radius: 50%; object-fit: contain;">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Collections -->
+            <section class="collections">
+                <div class="container">
+                    <h2 class="section-title">COLLECTIONS</h2>
+                    <div class="product-grid" id="featuredProducts">
+                        <!-- Featured products will be loaded here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Shop Page -->
+        <div id="shopPage" style="display: none;">
+            <div class="container">
+                <h2 class="section-title">SHOP ALL</h2>
+                
+                <!-- Filter Bar -->
+                <div class="filter-bar">
+                    <div class="filter-section">
+                        <label>FILTER:</label>
+                        <select class="filter-select" id="availabilityFilter">
+                            <option value="">Availability</option>
+                            <option value="instock">In Stock</option>
+                            <option value="sale">On Sale</option>
+                        </select>
+                        <select class="filter-select" id="collectionFilter">
+                            <option value="">Collection</option>
+                            <option value="tea">Tea Collection</option>
+                            <option value="apparel">Apparel</option>
+                            <option value="accessories">Accessories</option>
+                        </select>
+                    </div>
+                    <div class="filter-section">
+                        <label>SORT BY:</label>
+                        <select class="filter-select" id="sortFilter">
+                            <option value="featured">Featured</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="name">Name A-Z</option>
+                        </select>
+                        <span id="productCount">8 PRODUCTS</span>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="product-grid" id="allProducts">
+                    <!-- All products will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #47299E;">Sign in</h2>
+            <p style="text-align: center; margin-bottom: 2rem; color: #666;">Choose how you'd like to sign in</p>
+            
+            <button class="btn" onclick="shopSignIn()">Sign in with shop</button>
+            
+            <div style="text-align: center; margin: 1rem 0; color: #666;">or</div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                </div>
+                <button type="submit" class="btn">Continue</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="#" onclick="showRegisterForm()" style="color: #47299E; text-decoration: none;">Need an account? Register here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #47299E;">Create Account</h2>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" id="firstName" required>
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" id="lastName" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="registerPassword" required>
+                </div>
+                <button type="submit" class="btn">Create Account</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 1rem;">
+                <a href="#" onclick="showLoginForm()" style="color: #47299E; text-decoration: none;">Already have an account? Sign in</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('cartModal')">&times;</span>
+            <h2 style="text-align: center; margin-bottom: 2rem; color: #47299E;">Shopping Cart</h2>
+            
+            <div id="cartItems">
+                <div class="cart-empty">
+                    <h3>YOUR CART IS EMPTY</h3>
+                    <button class="btn" onclick="closeModal('cartModal'); showPage('shop')">Continue shopping</button>
+                </div>
+            </div>
+            
+            <div id="cartTotal" style="display: none;">
+                <div style="border-top: 2px solid #eee; padding-top: 1rem; margin-top: 1rem;">
+                    <div style="display: flex; justify-content: space-between; font-size: 1.2rem; font-weight: bold;">
+                        <span>Total: </span>
+                        <span id="cartTotalAmount">₱0.00</span>
+                    </div>
+                    <button class="btn" style="margin-top: 1rem;" onclick="checkout()">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Modal -->
+    <div id="productModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <span class="close" onclick="closeModal('productModal')">&times;</span>
+            <div id="productDetail">
+                <!-- Product details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>MAIN MENU</h3>
+                <ul>
+                    <li><a href="#">Shop All</a></li>
+                    <li><a href="#">Gen 1 Merch</a></li>
+                    <li><a href="#">ACX Merch</a></li>
+                    <li><a href="#">Notices</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>SUPPORT LINKS</h3>
+                <ul>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Refund Policy</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>SUBSCRIBE</h3>
+                <div class="form-group">
+                    <input type="email" placeholder="Email" style="margin-bottom: 1rem;">
+                    <button class="btn">SUBMIT</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product Data
+        const products = [
+            {
+                id: 1,
+                name: "Maze Keychain",
+                price: 900.00,
+                originalPrice: null,
+                category: "tea",
+                sale: false,
+                inStock: true,
+                image: '<img src="maze_chibi.png" alt="Maze Keychain" style="width:120px;height:auto;display:block;margin:0 auto;">'
+            },
+            {
+                id: 2,
+                name: "Maze Sticker set",
+                price: 1500.00,
+                originalPrice: 1800.00,
+                category: "tea",
+                sale: true,
+                inStock: true,
+                image: "🎁"
+            },
+            {
+                id: 3,
+                name: "Maze Postcard",
+                price: 4100.00,
+                originalPrice: 5200.00,
+                category: "tea",
+                sale: true,
+                inStock: true,
+                image: "🎁"
+            },
+            {
+                id: 4,
+                name: "Maze Sticker",
+                price: 6400.00,
+                originalPrice: 5700.00,
+                category: "accessories",
+                sale: true,
+                inStock: true,
+                image: "⌨️"
+            },
+            {
+                id: 5,
+                name: "Maze Standee",
+                price: 2700.00,
+                originalPrice: null,
+                category: "plush",
+                sale: false,
+                inStock: true,
+                image: "🧸"
+            },
+            {
+                id: 6,
+                name: "Maze Plushie?",
+                price: 1100.00,
+                originalPrice: 2100.00,
+                category: "apparel",
+                sale: true,
+                inStock: true,
+                image: "👕"
+            },
+            {
+                id: 7,
+                name: "Maze T-Shirt",
+                price: 1200.00,
+                originalPrice: 2400.00,
+                category: "apparel",
+                sale: false,
+                inStock: false,
+                image: "👕"
+            },
+            {
+                id: 8,
+                name: "Maze Nendroid",
+                price: 3500.00,
+                originalPrice: null,
+                category: "plush",
+                sale: false,
+                inStock: true,
+                image: "🧸"
+            }
+        ];
+
+        // Shopping Cart
+        let cart = [];
+        let currentUser = null;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            loadFeaturedProducts();
+            loadAllProducts();
+            updateCartUI();
+        });
+
+        // Page Navigation
+        function showPage(pageId) {
+            // Hide all pages
+            document.getElementById('homePage').style.display = 'none';
+            document.getElementById('shopPage').style.display = 'none';
+
+            // Show selected page
+            if (pageId === 'home') {
+                document.getElementById('homePage').style.display = 'block';
+            } else if (pageId === 'shop') {
+                document.getElementById('shopPage').style.display = 'block';
+            }
+        }
+
+        // Load Featured Products
+        function loadFeaturedProducts() {
+            const container = document.getElementById('featuredProducts');
+            const featuredProducts = products.slice(0, 4);
+            
+            container.innerHTML = featuredProducts.map(product => `
+                <div class="product-card" onclick="showProductDetail(${product.id})">
+                    <div class="product-image">
+                        ${product.sale ? '<div class="sale-badge">Sale</div>' : ''}
+                        <div style="font-size: 4rem;">${product.image}</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">
+                            <span class="current-price">₱${product.price.toFixed(2)}</span>
+                            ${product.originalPrice ? `<span class="original-price">₱${product.originalPrice.toFixed(2)}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Load All Products
+        function loadAllProducts() {
+            const container = document.getElementById('allProducts');
+            const productCount = document.getElementById('productCount');
+            
+            container.innerHTML = products.map(product => `
+                <div class="product-card" onclick="showProductDetail(${product.id})">
+                    <div class="product-image">
+                        ${product.sale ? '<div class="sale-badge">Sale</div>' : ''}
+                        ${!product.inStock ? '<div class="sale-badge" style="background: #999;">Sold out</div>' : ''}
+                        <div style="font-size: 4rem;">${product.image}</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">
+                            <span class="current-price">₱${product.price.toFixed(2)}</span>
+                            ${product.originalPrice ? `<span class="original-price">₱${product.originalPrice.toFixed(2)}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            productCount.textContent = `${products.length} PRODUCTS`;
+        }
+
+        // Show Product Detail
+        function showProductDetail(productId) {
+            const product = products.find(p => p.id === productId);
+            const modal = document.getElementById('productModal');
+            const detail = document.getElementById('productDetail');
+            
+            detail.innerHTML = `
+                <div style="display: flex; gap: 2rem;">
+                    <div style="flex: 1;">
+                        <div class="product-image" style="height: 400px; border-radius: 15px; display: flex; align-items: center; justify-content: center;">
+                            ${product.id === 1 ? '<img src="maze_chibi.png" alt="Maze Keychain" style="max-height: 350px; max-width: 100%; display: block; margin: 0 auto;">' : `<div style="font-size: 6rem;">${product.image}</div>`}
+                        </div>
+                    </div>
+                    <div style="flex: 1;">
+                        <h2 style="color: #333; margin-bottom: 1rem;">${product.name}</h2>
+                        <div class="product-price" style="margin-bottom: 2rem;">
+                            <span class="current-price" style="font-size: 1.5rem;">₱${product.price.toFixed(2)}</span>
+                            ${product.originalPrice ? `<span class="original-price">₱${product.originalPrice.toFixed(2)}</span>` : ''}
+                        </div>
+                        
+                        ${product.inStock ? `
+                            <div style="margin-bottom: 1rem;">
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Quantity</label>
+                                <input type="number" id="quantity" value="1" min="1" max="10" style="width: 80px; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px;">
+                            </div>
+                            <button class="btn" onclick="addToCart(${product.id})">Add to cart</button>
+                        ` : `
+                            <button class="btn" style="background: #999;" disabled>Sold Out</button>
+                        `}
+                        
+                        <div style="margin-top: 2rem;">
+                            <h3>Product Details:</h3>
+                            <ul style="margin-top: 1rem; padding-left: 1rem;">
+                                <li>High quality materials</li>
+                                <li>Official Maze merchandise</li>
+                                <li>Limited edition item</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.style.display = 'block';
+        }
+
+        // Add to Cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const quantity = parseInt(document.getElementById('quantity').value) || 1;
+            
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += quantity;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: quantity
+                });
+            }
+            
+            updateCartUI();
+            closeModal('productModal');
+            
+            // Show success message
+            alert('Product added to cart!');
+        }
+
+        // Update Cart UI
+        function updateCartUI() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const cartTotalAmount = document.getElementById('cartTotalAmount');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="cart-empty">
+                        <h3>YOUR CART IS EMPTY</h3>
+                        <button class="btn" onclick="closeModal('cartModal'); showPage('shop')">Continue shopping</button>
+                    </div>
+                `;
+                cartTotal.style.display = 'none';
+            } else {
+                const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <div style="font-size: 2rem;">${item.image}</div>
+                            <div>
+                                <div style="font-weight: bold;">${item.name}</div>
+                                <div style="color: #666;">₱${item.price.toFixed(2)} x ${item.quantity}</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})" style="background: #ff1493; color: white; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer;">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})" style="background: #ff1493; color: white; border: none; width: 30px; height: 30px; border-radius: 50%; cursor: pointer;">+</button>
+                            <button onclick="removeFromCart(${item.id})" style="background: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">Remove</button>
+                        </div>
+                    </div>
+                `).join('');
+                
+                cartTotalAmount.textContent = `₱${totalAmount.toFixed(2)}`;
+                cartTotal.style.display = 'block';
+            }
+        }
+
+        // Update Quantity
+        function updateQuantity(productId, newQuantity) {
+            if (newQuantity <= 0) {
+                removeFromCart(productId);
+                return;
+            }
+            
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = newQuantity;
+                updateCartUI();
+            }
+        }
+
+        // Remove from Cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        // Modal Functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Authentication Functions
+        function showLoginForm() {
+            closeModal('registerModal');
+            openModal('loginModal');
+        }
+
+        function showRegisterForm() {
+            closeModal('loginModal');
+            openModal('registerModal');
+        }
+
+        function shopSignIn() {
+            alert('Shop sign in functionality would integrate with your preferred OAuth provider');
+        }
+
+        // Form Handlers
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            
+            // Simulate login
+            currentUser = { email: email };
+            alert('Login successful!');
+            closeModal('loginModal');
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            
+            // Simulate registration
+            currentUser = { firstName, lastName, email };
+            alert('Account created successfully!');
+            closeModal('registerModal');
+        });
+
+        // Checkout Function
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            if (!currentUser) {
+                alert('Please sign in to checkout');
+                openModal('loginModal');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            alert(`Checkout successful! Total: ₱${total.toFixed(2)}`);
+            cart = [];
+            updateCartUI();
+            closeModal('cartModal');
+        }
+
+        // Filter and Sort Functions
+        document.getElementById('availabilityFilter').addEventListener('change', filterProducts);
+        document.getElementById('collectionFilter').addEventListener('change', filterProducts);
+        document.getElementById('sortFilter').addEventListener('change', filterProducts);
+
+        function filterProducts() {
+            const availability = document.getElementById('availabilityFilter').value;
+            const collection = document.getElementById('collectionFilter').value;
+            const sort = document.getElementById('sortFilter').value;
+            
+            let filteredProducts = [...products];
+            
+            // Filter by availability
+            if (availability === 'instock') {
+                filteredProducts = filteredProducts.filter(p => p.inStock);
+            } else if (availability === 'sale') {
+                filteredProducts = filteredProducts.filter(p => p.sale);
+            }
+            
+            // Filter by collection
+            if (collection) {
+                filteredProducts = filteredProducts.filter(p => p.category === collection);
+            }
+            
+            // Sort products
+            if (sort === 'price-low') {
+                filteredProducts.sort((a, b) => a.price - b.price);
+            } else if (sort === 'price-high') {
+                filteredProducts.sort((a, b) => b.price - a.price);
+            } else if (sort === 'name') {
+                filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+            }
+            
+            // Update product grid
+            const container = document.getElementById('allProducts');
+            const productCount = document.getElementById('productCount');
+            
+            container.innerHTML = filteredProducts.map(product => `
+                <div class="product-card" onclick="showProductDetail(${product.id})">
+                    <div class="product-image">
+                        ${product.sale ? '<div class="sale-badge">Sale</div>' : ''}
+                        ${!product.inStock ? '<div class="sale-badge" style="background: #999;">Sold out</div>' : ''}
+                        <div style="font-size: 4rem;">${product.image}</div>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-price">
+                            <span class="current-price">₱${product.price.toFixed(2)}</span>
+                            ${product.originalPrice ? `<span class="original-price">₱${product.originalPrice.toFixed(2)}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            productCount.textContent = `${filteredProducts.length} PRODUCTS`;
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
